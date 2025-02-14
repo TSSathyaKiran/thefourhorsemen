@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS  # To handle cross-origin requests
+from flask_cors import CORS
+from summarizer import parse_terms_and_conditions
 
 # Set up Flask app and enable CORS
 app = Flask(__name__)
@@ -11,11 +12,8 @@ def summarize_url():
     url = request.json.get('url')
     print(f"Received URL: {url}")  # Log the URL for debugging
 
-    # Example: You could summarize or process the URL here
-    # (for now, we'll return a mock response)
-    summary = f"This is a mock summary of the URL: {url}"
-    print(url)
-    # Send back a response (summary or other data)
+    summary = parse_terms_and_conditions(url)
+    print(summary)
     return jsonify({"message": "Server is working", "url_received": url, "summary": summary})
 
 
